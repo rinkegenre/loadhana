@@ -1,0 +1,1 @@
+delete from "EOC"."EO_O_GTFETREATY"; 

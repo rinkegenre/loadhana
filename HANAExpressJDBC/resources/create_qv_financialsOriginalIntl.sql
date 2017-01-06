@@ -1,62 +1,44 @@
-USE [EnterpriseReporting]
-GO
-
-/****** Object:  View [QV].[FinancialsOriginalIntl]    Script Date: 06.01.2017 10:07:11 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-CREATE VIEW [QV].[FinancialsOriginalIntl] AS
-SELECT [DRWSK]
-      ,F.[CreateDate]
-      ,F.[ModifyDate]
-      ,F.[DataSourceRef]
-      ,[AccountSK]
-      ,[AccountPostingNumber]
-      ,[CompanySK]
-      ,[CedentSK]
-      ,F.[TreatySK]
-      ,[TreatyPeriodSK]
-      ,[TreatySectionSK]
-      ,[TreatyInvolvementSK]
-      ,[AccountingUnitSK]
-      ,[LineOfBusinessSK]
-      ,[LossSK]
-      ,[ActivitySK]
-      ,[ClaimObjectSK]
-      ,[EstimateSK]
-      ,EC.[EntryCodeSK]
-      ,[PostingRecordSK]
-      ,[UnderwritingAreaSK]
-      ,[TreatyHistorySK]
-      ,[TreatySectionHistorySK]
-      ,[TreatyInvolvementHistorySK]
-      ,[BrokerSK]
-      ,[IBNRReserveCellSK]
-      ,[MCOBSK]
-      ,[LineOfBusinessCode]
-      ,[AccountStatusCode]
-      ,[AccountPeriodEndDate]
-      ,[UnderwritingDate]
-      ,[OccurrenceDate]
-      ,[FIPostingDate]
-      ,[FinancialPeriod]
-      ,[AccountingPeriod]
-      ,[AccountingYear]
-      ,[UnderwritingYear]
-      ,[GenReUnderwritingYear]
-      ,[OccurrenceYear]
-      ,[OriginalCurrencySK]
-	  ,[OriginalCurrency]
-      ,(F.OriginalAmount*EC.Operator) as [OriginalAmount]
-  FROM [EnterpriseWarehouse].[dbo].[EW_F_DRW] F
-    INNER JOIN [EnterpriseWarehouse].[dbo].[EW_O_Treaty] T
-    ON F.TreatySK = T.TreatySK AND T.LegalEntity in ('1', '12','-99')
-  INNER JOIN [EnterpriseWarehouse].[dbo].[EW_O_EntryCode] EC
-  ON F.EntryCodeSK = EC.EntryCodeSK 
-
-GO
-
+CREATE column TABLE eoc.qv_FinancialsOriginalIntl
+(
+	CreateDate datetime NOT NULL,	
+	ModifyDate datetime NOT NULL,	
+	AccountSK int NOT NULL,
+	AccountPostingNumber nvarchar(60) NOT NULL,
+	CompanySK smallint NOT NULL,
+	CedentSK int NOT NULL,
+	TreatySK int NOT NULL,
+	TreatyPeriodSK int NOT NULL,
+	TreatySectionSK int NOT NULL,
+	TreatyInvolvementSK int NOT NULL,
+	AccountingUnitSK int NOT NULL,
+	LineOfBusinessSK int NOT NULL,
+	LossSK int NOT NULL,
+	ActivitySK int NOT NULL,
+	ClaimObjectSK bigint NOT NULL,
+	EstimateSK smallint NOT NULL,
+	EntryCodeSK int NOT NULL,
+	PostingRecordSK bigint NOT NULL,
+	UnderwritingAreaSK int NOT NULL,
+	
+	TreatyHistorySK int NOT NULL,
+	TreatySectionHistorySK int NOT NULL,
+	TreatyInvolvementHistorySK int NULL,
+	BrokerSK int NOT NULL,
+	IBNRReserveCellSK int NOT NULL,
+	MCOBSK int NOT NULL,
+	LineOfBusinessCode nvarchar(24) NOT NULL,			
+	AccountStatusCode nvarchar(3) NOT NULL,
+	AccountPeriodEndDate date NOT NULL,
+	UnderwritingDate date NOT NULL,	
+	OccurrenceDate date NOT NULL,	
+	FIPostingDate date NOT NULL,
+	FinancialPeriod int NOT NULL,
+	AccountingPeriod int NULL,
+	AccountingYear smallint NOT NULL,
+	UnderwritingYear smallint NOT NULL,
+	GenReUnderwritingYear smallint NOT NULL,	
+	OccurrenceYear smallint NOT NULL,
+	OriginalCurrencySK smallint NOT NULL,		
+	OriginalCurrency nvarchar(5) NOT NULL,	
+	OriginalAmount decimal(24, 4) NOT NULL
+	)

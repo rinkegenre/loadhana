@@ -8,7 +8,7 @@ public class LoadEOCPeriod {
 		Connection mssqlConnection = null;
 		try {
 			hanaConnection = DriverManager.getConnection( // 10.173.19.184
-					"jdbc:sap://hxehost.grn.genre.com:30013/?autocommit=true?databaseName=SYSTEM&user=SYSTEM&password=Elster2016",
+					"jdbc:sap://hxehost.grn.genre.com:39013/?autocommit=false&databaseName=HDRW",
 					"SYSTEM", "Elster2016");
 
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
